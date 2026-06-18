@@ -40,7 +40,7 @@ function ShareButton({ label, href, onClick, children }) {
       target={href ? "_blank" : undefined}
       rel={href ? "noopener noreferrer" : undefined}
       aria-label={`Share via ${label}`}
-      className="group flex h-10 w-10 items-center justify-center border border-neutral-300 bg-white text-neutral-700 transition-all hover:border-black hover:bg-black hover:text-white"
+      className="group flex h-10 w-10 items-center justify-center border border-neutral-800 bg-[#0a0a0a] text-neutral-300 transition-all hover:border-gold hover:bg-gold hover:text-black"
     >
       {children}
     </Tag>
@@ -76,8 +76,8 @@ export function ShareSection() {
   }
 
   return (
-    <div className="flex flex-col gap-3 border-t border-neutral-100 pt-5">
-      <span className="text-[11px] uppercase tracking-[0.3em] text-neutral-400">
+    <div className="flex flex-col gap-3 border-t border-neutral-900 pt-5">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
         Share
       </span>
       <div className="flex flex-wrap items-center gap-2">
@@ -97,7 +97,7 @@ export function ShareSection() {
           {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
         </ShareButton>
         {copied ? (
-          <span className="ml-1 text-[11px] uppercase tracking-[0.2em] text-neutral-500">
+          <span className="ml-1 text-[11px] uppercase tracking-[0.2em] text-gold">
             Link Copied
           </span>
         ) : null}

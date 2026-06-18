@@ -24,7 +24,7 @@ export function ProductGallery() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative aspect-square w-full overflow-hidden bg-neutral-50">
+      <div className="relative aspect-square w-full overflow-hidden bg-[#0a0a0a] border border-neutral-900">
         <img
           key={active}
           src={sources[active].primary}
@@ -36,7 +36,7 @@ export function ProductGallery() {
           alt="Custom diamond WHOOP band"
           className="h-full w-full animate-fade-in object-cover"
         />
-        <div className="pointer-events-none absolute left-4 top-4 bg-white/80 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-neutral-700 backdrop-blur">
+        <div className="pointer-events-none absolute left-4 top-4 border border-gold/40 bg-black/70 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-gold backdrop-blur">
           Made to Order
         </div>
       </div>
@@ -47,10 +47,10 @@ export function ProductGallery() {
             key={idx}
             onClick={() => setActive(idx)}
             className={cn(
-              "relative h-20 w-20 flex-shrink-0 overflow-hidden border bg-neutral-50 transition-all md:h-24 md:w-24",
+              "relative h-20 w-20 flex-shrink-0 overflow-hidden border bg-[#0a0a0a] transition-all md:h-24 md:w-24",
               active === idx
-                ? "border-black ring-1 ring-black"
-                : "border-neutral-200 hover:border-neutral-400"
+                ? "border-gold ring-1 ring-gold"
+                : "border-neutral-800 hover:border-gold/60"
             )}
             aria-label={`View image ${idx + 1}`}
           >

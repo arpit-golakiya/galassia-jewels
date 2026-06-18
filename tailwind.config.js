@@ -13,19 +13,19 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(0 0% 90%)",
-        input: "hsl(0 0% 90%)",
-        ring: "hsl(0 0% 10%)",
-        background: "hsl(0 0% 100%)",
-        foreground: "hsl(0 0% 6%)",
+        border: "hsl(0 0% 18%)",
+        input: "hsl(0 0% 18%)",
+        ring: "#c9a063",
+        background: "#060606",
+        foreground: "#ece6d8",
         muted: {
-          DEFAULT: "hsl(0 0% 96%)",
-          foreground: "hsl(0 0% 40%)",
+          DEFAULT: "#111111",
+          foreground: "#8c8475",
         },
         gold: {
-          DEFAULT: "#b8945a",
+          DEFAULT: "#c9a063",
           dark: "#8a6d3b",
-          light: "#d4b07a",
+          light: "#e0c089",
         },
       },
       fontFamily: {
