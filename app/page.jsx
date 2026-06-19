@@ -1,7 +1,6 @@
 import { SiteHeader } from "@/components/site-header";
 import { ProductGallery } from "@/components/product-gallery";
 import { Configurator } from "@/components/configurator";
-import { ShareSection } from "@/components/share-section";
 
 export default function Home() {
   return (
@@ -9,25 +8,20 @@ export default function Home() {
       <SiteHeader />
 
       <main className="container py-10 md:py-16">
+        {/* Designed-by — sits top-right on every viewport */}
+        <div className="mb-6 flex flex-col items-end gap-1 md:mb-8">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+            Designed By
+          </span>
+          <span className="font-serif text-xl italic text-foreground md:text-2xl">
+            Urvik Sutariya
+          </span>
+        </div>
+
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left — Gallery + credits */}
+          {/* Left — Gallery */}
           <div className="flex flex-col gap-6">
             <ProductGallery />
-
-            <div className="flex flex-col gap-1 border-t border-neutral-900 pt-5">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-                Brand
-              </span>
-              <span className="font-serif text-2xl text-foreground">WHOOP</span>
-              <span className="mt-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-                Designed By
-              </span>
-              <span className="font-serif text-xl italic text-foreground">
-                Urvik Sutariya
-              </span>
-            </div>
-
-            <ShareSection />
           </div>
 
           {/* Right — Configurator */}
@@ -78,8 +72,14 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-neutral-900 bg-[#060606]">
-        <div className="container flex flex-col items-center justify-between gap-3 py-8 text-center text-xs uppercase tracking-[0.25em] text-neutral-500 md:flex-row md:text-left">
+        <div className="container flex flex-col items-center justify-between gap-3 py-8 text-center text-xs uppercase tracking-[0.25em] text-neutral-400 md:flex-row md:text-left">
           <span>© {new Date().getFullYear()} Galassia Jewels</span>
+          <a
+            href="mailto:contact@galassiajewels.com"
+            className="normal-case tracking-normal text-gold transition-colors hover:text-gold-light"
+          >
+            contact@galassiajewels.com
+          </a>
           <span>Made to Order · India</span>
         </div>
       </footer>

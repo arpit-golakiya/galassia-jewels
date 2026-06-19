@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Lock, Check } from "lucide-react";
+import { Lock, Check, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
@@ -131,11 +131,6 @@ export function Configurator() {
             />
           ))}
         </div>
-        {diamondType === "lab-grown" && (
-          <p className="text-xs italic text-neutral-500/90">
-            Lab-grown collection is currently offered in EF VVS-VS grade only.
-          </p>
-        )}
       </section>
 
       {/* Karat */}
@@ -240,6 +235,20 @@ export function Configurator() {
             <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-300">
               We respect your privacy
             </p>
+            <a
+              href="https://www.instagram.com/urviksutaria?utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mx-auto inline-flex items-center gap-2 text-center text-[12px] tracking-wide text-neutral-300 transition-colors hover:text-gold"
+            >
+              <Instagram className="h-4 w-4 text-gold transition-transform group-hover:scale-110" />
+              <span>
+                For custom orders, DM us on{" "}
+                <span className="font-semibold text-gold group-hover:text-gold-light">
+                  Instagram
+                </span>
+              </span>
+            </a>
           </form>
         )}
       </section>
