@@ -14,7 +14,7 @@ export default function Home() {
             Designed By
           </span>
           <span className="font-serif text-xl italic text-foreground md:text-2xl">
-            Urvik Sutariya
+            Urvik SUTARIA
           </span>
         </div>
 
@@ -64,7 +64,7 @@ export default function Home() {
               WHOOP Compatible
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-              Engineered around the WHOOP 4.0 strap so the sensor sits flush
+              Engineered around the WHOOP 5.0 strap so the sensor sits flush
               against the wrist — no compromise on accuracy.
             </p>
           </div>
