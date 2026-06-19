@@ -14,7 +14,7 @@ export default function Home() {
             Designed By
           </span>
           <span className="font-serif text-xl italic text-foreground md:text-2xl">
-            Urvik SUTARIA
+            URVIK SUTARIA
           </span>
         </div>
 
