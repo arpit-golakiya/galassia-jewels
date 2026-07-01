@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { ProductGallery } from "@/components/product-gallery";
 import { Configurator } from "@/components/configurator";
 
@@ -31,7 +32,7 @@ export default function Home() {
         </div>
 
         {/* Bottom narrative — like menofplatinum description blocks */}
-        <section className="mx-auto mt-20 grid max-w-5xl grid-cols-1 gap-10 border-t border-neutral-900 pt-12 md:grid-cols-3 md:gap-14">
+        <section className="mx-auto mt-20 grid max-w-6xl grid-cols-1 gap-10 border-t border-neutral-900 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           <div>
             <span className="gold-text text-[11px] font-bold uppercase tracking-[0.3em]">
               01 — Craft
@@ -68,21 +69,21 @@ export default function Home() {
               against the wrist — no compromise on accuracy.
             </p>
           </div>
+          <div>
+            <span className="gold-text text-[11px] font-bold uppercase tracking-[0.3em]">
+              04 — Policy
+            </span>
+            <h3 className="mt-3 font-serif text-2xl text-foreground">
+              Buyback Assurance
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-neutral-400">
+              Enjoy 80% buyback on diamond value as part of our refund policy.
+            </p>
+          </div>
         </section>
       </main>
 
-      <footer className="border-t border-neutral-900 bg-[#060606]">
-        <div className="container flex flex-col items-center justify-between gap-3 py-8 text-center text-xs uppercase tracking-[0.25em] text-neutral-400 md:flex-row md:text-left">
-          <span>© {new Date().getFullYear()} Galassia Jewels</span>
-          <a
-            href="mailto:contact@galassiajewels.com"
-            className="normal-case tracking-normal text-gold transition-colors hover:text-gold-light"
-          >
-            contact@galassiajewels.com
-          </a>
-          <span>Made to Order · India</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
