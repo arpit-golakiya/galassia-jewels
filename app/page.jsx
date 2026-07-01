@@ -50,11 +50,11 @@ export default function Home() {
               02 — Material
             </span>
             <h3 className="mt-3 font-serif text-2xl text-foreground">
-              Solid Gold Hardware
+              Precious Metal Hardware
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-              Choose between 10kt, 14kt, or 18kt yellow gold — each option
-              certified for purity and finish.
+              Choose between 10kt, 14kt, or 18kt yellow gold, or 925 sterling
+              silver — each option finished to order.
             </p>
           </div>
           <div>

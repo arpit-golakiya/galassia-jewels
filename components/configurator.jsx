@@ -44,6 +44,14 @@ function OptionTile({ active, onClick, title, sub }) {
   );
 }
 
+function materialLabel(value) {
+  return value === "925" ? "925 Sterling Silver" : `${value.toUpperCase()} Gold`;
+}
+
+function materialTitle(value) {
+  return value === "925" ? "925 Silver" : `${value.toUpperCase()} Gold`;
+}
+
 export function Configurator() {
   const [diamondType, setDiamondType] = useState("natural");
   const [quality, setQuality] = useState("EF VVS-VS");
@@ -92,12 +100,12 @@ export function Configurator() {
           Custom Diamond <span className="italic text-gold">Whoop</span> Band
         </h1>
         <p className="text-sm uppercase tracking-[0.25em] text-neutral-400">
-          Available in Gold &amp; Diamond
+          Available in Gold, Sterling Silver &amp; Diamond
         </p>
         <p className="max-w-prose text-[15px] leading-relaxed text-neutral-400">
-          A reimagined WHOOP band in solid gold, set with hand-selected baguette
-          and round-cut diamonds. Crafted to order — choose your karat and
-          diamond grade to make it yours.
+          A reimagined WHOOP band in precious metal, set with hand-selected
+          baguette and round-cut diamonds. Crafted to order — choose your metal
+          and diamond grade to make it yours.
         </p>
       </div>
 
@@ -133,17 +141,25 @@ export function Configurator() {
         </div>
       </section>
 
-      {/* Karat */}
+      {/* Material */}
       <section className="flex flex-col gap-3">
-        <Label>Gold Karat</Label>
-        <div className="grid grid-cols-3 gap-3">
+        <Label>Metal</Label>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {KARATS.map((k) => (
             <OptionTile
               key={k}
               active={karat === k}
               onClick={() => setKarat(k)}
-              title={k.toUpperCase()}
-              sub={k === "18kt" ? "Finest" : k === "14kt" ? "Balanced" : "Light"}
+              title={materialTitle(k)}
+              sub={
+                k === "925"
+                  ? "Sterling Silver"
+                  : k === "18kt"
+                    ? "Finest"
+                    : k === "14kt"
+                      ? "Balanced"
+                      : "Light"
+              }
             />
           ))}
         </div>
@@ -158,7 +174,7 @@ export function Configurator() {
             </span>
             <div className="flex flex-col gap-1">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-neutral-300">
-                <span>{karat.toUpperCase()} Gold</span>
+                <span>{materialLabel(karat)}</span>
                 <span className="text-neutral-700">/</span>
                 <span>{quality}</span>
                 <span className="text-neutral-700">/</span>
