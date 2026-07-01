@@ -14,6 +14,21 @@ import {
   qualitiesFor,
 } from "@/lib/pricing";
 
+const GOLD_COLORS = [
+  {
+    name: "Yellow",
+    swatch: "#d4af37",
+  },
+  {
+    name: "Rose",
+    swatch: "#c58a72",
+  },
+  {
+    name: "White",
+    swatch: "#d9d9d9",
+  },
+];
+
 function OptionTile({ active, onClick, title, sub }) {
   return (
     <button
@@ -52,16 +67,40 @@ function materialTitle(value) {
   return value === "925" ? "925 Silver" : `${value.toUpperCase()} Gold`;
 }
 
+function GoldColorSwatch({ active, color, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Select ${color.name} gold`}
+      aria-pressed={active}
+      className={cn(
+        "relative flex h-9 w-16 items-center justify-center rounded-full border-2 transition-all",
+        active
+          ? "scale-105 border-gold shadow-[0_0_0_3px_rgba(201,160,99,0.35)]"
+          : "border-neutral-700 hover:border-gold/70"
+      )}
+      style={{ background: color.swatch }}
+    >
+      {active ? (
+        <Check className="h-4 w-4 rounded-full bg-black/55 p-0.5 text-white" />
+      ) : null}
+    </button>
+  );
+}
+
 export function Configurator() {
   const [diamondType, setDiamondType] = useState("natural");
   const [quality, setQuality] = useState("EF VVS-VS");
   const [karat, setKarat] = useState("18kt");
+  const [goldColor, setGoldColor] = useState("Yellow");
 
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [unlocked, setUnlocked] = useState(false);
   const [errors, setErrors] = useState({});
 
   const qualities = useMemo(() => qualitiesFor(diamondType), [diamondType]);
+  const isGold = karat !== "925";
 
   const price = getPrice({ diamondType, quality, karat });
 
@@ -165,6 +204,24 @@ export function Configurator() {
         </div>
       </section>
 
+      {isGold ? (
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Color Type : <span className="text-gold-light">{goldColor}</span>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {GOLD_COLORS.map((color) => (
+              <GoldColorSwatch
+                key={color.name}
+                active={goldColor === color.name}
+                color={color}
+                onClick={() => setGoldColor(color.name)}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {/* Price / Reveal Form */}
       <section className="border border-neutral-800 bg-[#0a0a0a] p-6 md:p-8">
         {unlocked ? (
@@ -175,6 +232,12 @@ export function Configurator() {
             <div className="flex flex-col gap-1">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-neutral-300">
                 <span>{materialLabel(karat)}</span>
+                {isGold ? (
+                  <>
+                    <span className="text-neutral-700">/</span>
+                    <span>{goldColor} Gold</span>
+                  </>
+                ) : null}
                 <span className="text-neutral-700">/</span>
                 <span>{quality}</span>
                 <span className="text-neutral-700">/</span>
