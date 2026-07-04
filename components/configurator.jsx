@@ -31,20 +31,20 @@ const GOLD_COLORS = [
 
 const BAND_COLORS = [
   {
-    name: "Jet Black",
-    swatch: "#14191c",
-  },
-  {
-    name: "Gravity",
-    swatch: "#6f7370",
-  },
-  {
     name: "Dune",
     swatch: "#d0c2ad",
   },
   {
-    name: "Ash Grey",
-    swatch: "#a9a9a4",
+    name: "Obsidian",
+    swatch: "#111719",
+  },
+  {
+    name: "MidNight",
+    swatch: "#17202a",
+  },
+  {
+    name: "Graphite",
+    swatch: "#555b5c",
   },
 ];
 
@@ -113,7 +113,7 @@ function BandColorSwatch({ active, color, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      aria-label={`Select ${color.name} band color`}
+      aria-label={`Select ${color.name} SuperKnit band colour`}
       aria-pressed={active}
       title={color.name}
       className={cn(
@@ -159,7 +159,7 @@ export function Configurator() {
   const [quality, setQuality] = useState("EF VVS-VS");
   const [karat, setKarat] = useState("18kt");
   const [goldColor, setGoldColor] = useState("Yellow");
-  const [bandColor, setBandColor] = useState("Jet Black");
+  const [bandColor, setBandColor] = useState("Dune");
 
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [unlocked, setUnlocked] = useState(false);
@@ -331,7 +331,8 @@ export function Configurator() {
 
       <section className="flex flex-col gap-3">
         <div className="text-sm font-medium text-foreground">
-          Band Color : <span className="text-gold-light">{bandColor}</span>
+          SuperKnit Band Colour :{" "}
+          <span className="text-gold-light">{bandColor}</span>
         </div>
         <div className="flex flex-wrap gap-3">
           {BAND_COLORS.map((color) => (
@@ -358,7 +359,7 @@ export function Configurator() {
                 <span className="text-neutral-700">/</span>
                 <span>{goldColor} Gold</span>
                 <span className="text-neutral-700">/</span>
-                <span>{bandColor} Band</span>
+                <span>{bandColor} SuperKnit Band</span>
                 <span className="text-neutral-700">/</span>
                 <span>{quality}</span>
                 <span className="text-neutral-700">/</span>
@@ -522,7 +523,7 @@ export function Configurator() {
                   </span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-neutral-500">Band Color</span>
+                  <span className="text-neutral-500">SuperKnit Band Colour</span>
                   <span className="text-right text-foreground">
                     {bandColor}
                   </span>

@@ -54,7 +54,7 @@ export async function POST(request) {
     const quality = sanitize(payload.quality);
     const karat = sanitize(payload.karat);
     const goldColor = sanitize(payload.goldColor);
-    const bandColor = sanitize(payload.bandColor) || "Jet Black";
+    const bandColor = sanitize(payload.bandColor) || "Dune";
     const price = getPrice({ diamondType, quality, karat });
 
     if (!name || !phone || !diamondType || !quality || !karat || !price) {
@@ -122,7 +122,7 @@ export async function POST(request) {
         "",
         `Material: ${material}`,
         `Gold Color: ${selectedColor}`,
-        `Band Color: ${bandColor}`,
+        `SuperKnit Band Colour: ${bandColor}`,
         `Diamond Quality: ${quality}`,
         `Diamond Type: ${diamondTypeLabel}`,
         `Price: ${formattedPrice}`,
@@ -136,7 +136,7 @@ export async function POST(request) {
           <hr />
           <p><strong>Material:</strong> ${safe.material}</p>
           <p><strong>Gold Color:</strong> ${safe.selectedColor}</p>
-          <p><strong>Band Color:</strong> ${safe.bandColor}</p>
+          <p><strong>SuperKnit Band Colour:</strong> ${safe.bandColor}</p>
           <p><strong>Diamond Quality:</strong> ${safe.quality}</p>
           <p><strong>Diamond Type:</strong> ${safe.diamondType}</p>
           <p><strong>Price:</strong> ${safe.formattedPrice}</p>
@@ -154,12 +154,12 @@ export async function POST(request) {
             `Dear ${name},`,
             "",
             "Thank you for placing your order request with Galassia Jewels.",
-            "We have received your details and our team will contact you within 24 hours to confirm the next steps.",
+            "We have received your details and our team will contact you within 2-3 hours to confirm the next steps.",
             "",
             "Your requested selection:",
             `Material: ${material}`,
             `Gold Color: ${selectedColor}`,
-            `Band Color: ${bandColor}`,
+            `SuperKnit Band Colour: ${bandColor}`,
             `Diamond Quality: ${quality}`,
             `Diamond Type: ${diamondTypeLabel}`,
             `Price: ${formattedPrice}`,
@@ -210,7 +210,7 @@ export async function POST(request) {
                           <td align="right" style="padding: 10px 0; color: #ece6d8; font-size: 14px; border-top: 1px solid #202020;">${safe.selectedColor}</td>
                         </tr>
                         <tr>
-                          <td style="padding: 10px 0; color: #8f887e; font-size: 13px; border-top: 1px solid #202020;">Band Color</td>
+                          <td style="padding: 10px 0; color: #8f887e; font-size: 13px; border-top: 1px solid #202020;">SuperKnit Band Colour</td>
                           <td align="right" style="padding: 10px 0; color: #ece6d8; font-size: 14px; border-top: 1px solid #202020;">${safe.bandColor}</td>
                         </tr>
                         <tr>
