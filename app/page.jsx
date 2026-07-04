@@ -32,7 +32,7 @@ export default function Home() {
         </div>
 
         {/* Bottom narrative — like menofplatinum description blocks */}
-        <section className="mx-auto mt-20 grid max-w-6xl grid-cols-1 gap-10 border-t border-neutral-900 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+        <section className="mx-auto mt-20 grid max-w-5xl grid-cols-1 gap-10 border-t border-neutral-900 pt-12 md:grid-cols-3 md:gap-14">
           <div>
             <span className="gold-text text-[11px] font-bold uppercase tracking-[0.3em]">
               01 — Craft
@@ -67,17 +67,6 @@ export default function Home() {
             <p className="mt-2 text-sm leading-relaxed text-neutral-400">
               Engineered around the WHOOP 5.0 strap so the sensor sits flush
               against the wrist — no compromise on accuracy.
-            </p>
-          </div>
-          <div>
-            <span className="gold-text text-[11px] font-bold uppercase tracking-[0.3em]">
-              04 — Policy
-            </span>
-            <h3 className="mt-3 font-serif text-2xl text-foreground">
-              Buyback Assurance
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-              Enjoy 80% buyback on diamond value as part of our refund policy.
             </p>
           </div>
         </section>

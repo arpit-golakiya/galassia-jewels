@@ -23,10 +23,6 @@ const sections = [
     body: "Because our pieces are made to order, cancellations or refunds may be limited after production begins. Refund eligibility, if any, will be reviewed based on the order stage, customization, and product condition.",
   },
   {
-    title: "Diamond Buyback Policy",
-    body: "Galassia Jewels offers 80% buyback on diamond value, subject to product verification, original purchase details, and the condition of the diamonds at the time of buyback request.",
-  },
-  {
     title: "Shipping And Delivery",
     body: "Delivery timelines are estimates and may be affected by production, quality checks, shipping partners, customs, or customer availability. The customer is responsible for providing accurate shipping and contact details.",
   },
@@ -36,14 +32,14 @@ const sections = [
   },
   {
     title: "Contact",
-    body: "For questions about an order, customization, refund eligibility, or buyback requests, contact us at contact@galassiajewels.com.",
+    body: "For questions about an order, customization, or refund eligibility, contact us at contact@galassiajewels.com.",
   },
 ];
 
 export const metadata = {
   title: "Terms & Conditions — Galassia Jewels",
   description:
-    "Terms and conditions for made-to-order Galassia Jewels products, refunds, and diamond buyback policy.",
+    "Terms and conditions for made-to-order Galassia Jewels products, payments, refunds, shipping, and product care.",
 };
 
 export default function TermsAndConditions() {
