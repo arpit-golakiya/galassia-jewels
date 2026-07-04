@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 const PLACEHOLDER_IMAGES = [
   "/product/1.jpeg",
   "/product/2.jpeg",
-  "/product/3.jpeg",
-  "/product/4.jpeg",
+  "/product/3.JPEG",
+  "/product/4.JPEG",
 ];
 
 const FALLBACKS = [
