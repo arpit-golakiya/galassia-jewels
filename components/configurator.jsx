@@ -461,7 +461,7 @@ export function Configurator() {
               We respect your privacy
             </p>
             <a
-              href="https://www.instagram.com/urviksutaria?utm_source=qr"
+              href="https://www.instagram.com/thegujjudiamantaire?utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
               className="group mx-auto inline-flex items-center gap-2 text-center text-[12px] tracking-wide text-neutral-300 transition-colors hover:text-gold"
