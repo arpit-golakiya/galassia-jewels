@@ -12,6 +12,19 @@ function sanitize(value) {
   return String(value || "").trim();
 }
 
+function formatTimestamp(date) {
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  }).format(date);
+}
+
 function base64url(input) {
   return Buffer.from(input)
     .toString("base64")
@@ -162,7 +175,7 @@ export async function POST(request) {
     }
 
     const leadValues = [
-      new Date().toISOString(),
+      formatTimestamp(new Date()),
       name,
       phone,
       email || "Not provided",
