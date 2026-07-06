@@ -131,29 +131,6 @@ function BandColorSwatch({ active, color, onClick }) {
   );
 }
 
-function trackRevealPrice({
-  diamondType,
-  quality,
-  karat,
-  goldColor,
-  bandColor,
-  price,
-}) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") {
-    return;
-  }
-
-  window.gtag("event", "reveal_price_click", {
-    diamond_type: diamondType,
-    diamond_quality: quality,
-    metal: karat,
-    gold_color: goldColor,
-    band_color: bandColor,
-    value: price,
-    currency: "INR",
-  });
-}
-
 export function Configurator() {
   const [diamondType, setDiamondType] = useState("natural");
   const [quality, setQuality] = useState("EF VVS-VS");
@@ -163,6 +140,7 @@ export function Configurator() {
 
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [unlocked, setUnlocked] = useState(false);
+  const [isRevealingPrice, setIsRevealingPrice] = useState(false);
   const [isSubmittingOrder, setIsSubmittingOrder] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [orderSent, setOrderSent] = useState(false);
@@ -201,19 +179,36 @@ export function Configurator() {
     };
   }
 
-  function handleReveal(e) {
+  async function handleReveal(e) {
     e.preventDefault();
     if (!validate()) return;
     setSubmitError("");
-    trackRevealPrice({
-      diamondType,
-      quality,
-      karat,
-      goldColor,
-      bandColor,
-      price,
-    });
-    setUnlocked(true);
+    setIsRevealingPrice(true);
+
+    try {
+      const response = await fetch("/api/reveal-price", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...orderPayload(),
+          pageUrl: window.location.href,
+          userAgent: window.navigator.userAgent,
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.message || "Unable to reveal price right now.");
+      }
+
+      setUnlocked(true);
+    } catch (error) {
+      setSubmitError(
+        error.message || "Unable to reveal price right now. Please try again."
+      );
+    } finally {
+      setIsRevealingPrice(false);
+    }
   }
 
   async function handlePlaceOrderRequest() {
@@ -454,8 +449,9 @@ export function Configurator() {
               type="submit"
               size="lg"
               className="mt-2 w-full"
+              disabled={isRevealingPrice}
             >
-              Reveal Price
+              {isRevealingPrice ? "Saving..." : "Reveal Price"}
             </Button>
             <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-300">
               We respect your privacy
