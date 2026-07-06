@@ -451,7 +451,7 @@ export function Configurator() {
               className="mt-2 w-full"
               disabled={isRevealingPrice}
             >
-              {isRevealingPrice ? "Saving..." : "Reveal Price"}
+              {isRevealingPrice ? "Revealing..." : "Reveal Price"}
             </Button>
             <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-300">
               We respect your privacy
