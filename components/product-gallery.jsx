@@ -8,12 +8,14 @@ const PLACEHOLDER_IMAGES = [
   "/product/2.jpeg",
   "/product/3.JPEG",
   "/product/4.JPEG",
+  "/product/5.jpg",
 ];
 
 const FALLBACKS = [
   "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1400",
   "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1400",
   "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1400",
+  "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?q=80&w=1400",
   "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?q=80&w=1400",
 ];
 
