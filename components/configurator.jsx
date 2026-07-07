@@ -148,6 +148,7 @@ export function Configurator() {
 
   const [currency, setCurrency] = useState("INR");
   const [country, setCountry] = useState("");
+  const [phoneCountry, setPhoneCountry] = useState("in");
 
   useEffect(() => {
     let cancelled = false;
@@ -160,12 +161,22 @@ export function Configurator() {
 
     async function detectLocation() {
       try {
-        const res = await fetch("https://ipwho.is/", { cache: "no-store" });
+        // IPv4-only host (no AAAA record) so the lookup is forced through a
+        // VPN's IPv4 tunnel instead of leaking the real IP over IPv6.
+        const res = await fetch("https://api.ipapi.is/", { cache: "no-store" });
         const data = await res.json();
         if (cancelled) return;
-        if (data && data.success && data.country_code) {
-          setCountry(data.country || "");
-          setCurrency(data.country_code === "IN" ? "INR" : "USD");
+        const loc = data?.location;
+        if (loc?.country_code) {
+          const iso = loc.country_code.toLowerCase();
+          setCountry(loc.country || "");
+          setCurrency(loc.country_code === "IN" ? "INR" : "USD");
+          // Clear the auto-filled dial code so the phone input re-mounts to the
+          // detected country instead of re-parsing the old "+91" value.
+          if (iso !== phoneCountry) {
+            setForm((f) => ({ ...f, phone: "" }));
+            setPhoneCountry(iso);
+          }
           return;
         }
         fallbackToTimezone();
@@ -178,6 +189,7 @@ export function Configurator() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const qualities = useMemo(() => qualitiesFor(diamondType), [diamondType]);
@@ -457,6 +469,8 @@ export function Configurator() {
             <div className="flex flex-col gap-2">
               <Label htmlFor="phone">Phone Number</Label>
               <PhoneInput
+                key={phoneCountry}
+                defaultCountry={phoneCountry}
                 value={form.phone}
                 onChange={(phone) => setForm({ ...form, phone })}
                 invalid={!!errors.phone}
