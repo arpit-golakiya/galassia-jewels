@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { NextResponse } from "next/server";
 import { getPrice } from "@/lib/pricing";
-import { formatINR } from "@/lib/utils";
+import { buildPriceForCurrency } from "@/lib/utils";
 
 export const runtime = "nodejs";
 
@@ -165,6 +165,8 @@ export async function POST(request) {
     const goldColor = sanitize(payload.goldColor);
     const bandColor = sanitize(payload.bandColor);
     const pageUrl = sanitize(payload.pageUrl);
+    const currency = sanitize(payload.currency) === "USD" ? "USD" : "INR";
+    const country = sanitize(payload.country) || "Unknown";
     const price = getPrice({ diamondType, quality, karat });
 
     if (!name || !phone || !diamondType || !quality || !karat || !price) {
@@ -173,6 +175,8 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+
+    const shownPrice = buildPriceForCurrency(price, currency);
 
     const leadValues = [
       formatTimestamp(new Date()),
@@ -184,11 +188,12 @@ export async function POST(request) {
       `${karat.toUpperCase()} Gold`,
       `${goldColor || "Yellow"} Gold`,
       bandColor || "Dune",
-      price,
-      formatINR(price),
+      shownPrice.number,
+      shownPrice.display,
       pageUrl,
       payload.userAgent || "",
       "Reveal Price",
+      country,
     ];
 
     const webhookConfig = getWebhookConfig();

@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import dns from "node:dns";
 import { NextResponse } from "next/server";
 import { getPrice } from "@/lib/pricing";
-import { formatINR } from "@/lib/utils";
+import { buildPriceForCurrency } from "@/lib/utils";
 
 function sanitize(value) {
   return String(value || "").trim();
@@ -55,6 +55,8 @@ export async function POST(request) {
     const karat = sanitize(payload.karat);
     const goldColor = sanitize(payload.goldColor);
     const bandColor = sanitize(payload.bandColor) || "Dune";
+    const currency = sanitize(payload.currency) === "USD" ? "USD" : "INR";
+    const country = sanitize(payload.country) || "Unknown";
     const price = getPrice({ diamondType, quality, karat });
 
     if (!name || !phone || !diamondType || !quality || !karat || !price) {
@@ -81,12 +83,13 @@ export async function POST(request) {
 
     const material = materialLabel(karat);
     const selectedColor = `${goldColor || "Yellow"} Gold`;
-    const formattedPrice = formatINR(price);
+    const formattedPrice = buildPriceForCurrency(price, currency).display;
     const diamondTypeLabel = diamondType.replace("-", " ");
     const safe = {
       name: escapeHtml(name),
       phone: escapeHtml(phone),
       email: escapeHtml(email || "Not provided"),
+      country: escapeHtml(country),
       material: escapeHtml(material),
       selectedColor: escapeHtml(selectedColor),
       bandColor: escapeHtml(bandColor),
@@ -119,6 +122,7 @@ export async function POST(request) {
         `Name: ${name}`,
         `Phone: ${phone}`,
         `Email: ${email || "Not provided"}`,
+        `Country: ${country}`,
         "",
         `Material: ${material}`,
         `Gold Color: ${selectedColor}`,
@@ -133,6 +137,7 @@ export async function POST(request) {
           <p><strong>Name:</strong> ${safe.name}</p>
           <p><strong>Phone:</strong> ${safe.phone}</p>
           <p><strong>Email:</strong> ${safe.email}</p>
+          <p><strong>Country:</strong> ${safe.country}</p>
           <hr />
           <p><strong>Material:</strong> ${safe.material}</p>
           <p><strong>Gold Color:</strong> ${safe.selectedColor}</p>

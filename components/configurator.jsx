@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Lock, Check, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { Label } from "@/components/ui/label";
-import { cn, formatINR } from "@/lib/utils";
+import { cn, formatINR, formatUSD, inrToUsd, isIndianVisitor } from "@/lib/utils";
 import {
   DIAMOND_TYPES,
   KARATS,
@@ -146,9 +146,50 @@ export function Configurator() {
   const [orderSent, setOrderSent] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const [currency, setCurrency] = useState("INR");
+  const [country, setCountry] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    function fallbackToTimezone() {
+      const india = isIndianVisitor();
+      setCurrency(india ? "INR" : "USD");
+      setCountry(india ? "India" : "");
+    }
+
+    async function detectLocation() {
+      try {
+        const res = await fetch("https://ipwho.is/", { cache: "no-store" });
+        const data = await res.json();
+        if (cancelled) return;
+        if (data && data.success && data.country_code) {
+          setCountry(data.country || "");
+          setCurrency(data.country_code === "IN" ? "INR" : "USD");
+          return;
+        }
+        fallbackToTimezone();
+      } catch {
+        if (!cancelled) fallbackToTimezone();
+      }
+    }
+
+    detectLocation();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const qualities = useMemo(() => qualitiesFor(diamondType), [diamondType]);
 
   const price = getPrice({ diamondType, quality, karat });
+
+  function formatPrice(inrAmount) {
+    if (inrAmount == null) return "";
+    return currency === "USD"
+      ? formatUSD(inrToUsd(inrAmount))
+      : formatINR(inrAmount);
+  }
 
   function handleDiamondType(value) {
     setDiamondType(value);
@@ -176,6 +217,8 @@ export function Configurator() {
       karat,
       goldColor,
       bandColor,
+      currency,
+      country,
     };
   }
 
@@ -362,7 +405,7 @@ export function Configurator() {
               </div>
               <div className="mt-2">
                 <span className="font-serif text-4xl text-gold-light md:text-5xl">
-                  {formatINR(price)}
+                  {formatPrice(price)}
                 </span>
               </div>
             </div>
@@ -533,7 +576,7 @@ export function Configurator() {
                 <div className="flex justify-between gap-4 border-t border-neutral-900 pt-3">
                   <span className="text-neutral-500">Price</span>
                   <span className="font-serif text-xl text-gold-light">
-                    {formatINR(price)}
+                    {formatPrice(price)}
                   </span>
                 </div>
               </div>
