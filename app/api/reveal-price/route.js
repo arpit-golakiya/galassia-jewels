@@ -12,6 +12,16 @@ function sanitize(value) {
   return String(value || "").trim();
 }
 
+function getClientIp(request) {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const realIp = request.headers.get("x-real-ip");
+  const vercelIp = request.headers.get("x-vercel-forwarded-for");
+  const cloudflareIp = request.headers.get("cf-connecting-ip");
+  const rawIp = forwardedFor || vercelIp || cloudflareIp || realIp || "";
+
+  return sanitize(rawIp.split(",")[0]) || "Unknown";
+}
+
 function formatTimestamp(date) {
   return new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -104,7 +114,7 @@ async function getAccessToken({ clientEmail, privateKey }) {
 async function appendLeadToSheet(config, values) {
   const accessToken = await getAccessToken(config);
   const escapedSheetName = config.sheetName.replace(/'/g, "''");
-  const range = encodeURIComponent(`'${escapedSheetName}'!A:N`);
+  const range = encodeURIComponent(`'${escapedSheetName}'!A:P`);
   const response = await fetch(
     `https://sheets.googleapis.com/v4/spreadsheets/${config.spreadsheetId}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
     {
@@ -167,6 +177,7 @@ export async function POST(request) {
     const pageUrl = sanitize(payload.pageUrl);
     const currency = sanitize(payload.currency) === "USD" ? "USD" : "INR";
     const country = sanitize(payload.country) || "Unknown";
+    const ipAddress = getClientIp(request);
     const price = getPrice({ diamondType, quality, karat });
 
     if (!name || !phone || !diamondType || !quality || !karat || !price) {
@@ -194,6 +205,7 @@ export async function POST(request) {
       payload.userAgent || "",
       "Reveal Price",
       country,
+      ipAddress,
     ];
 
     const webhookConfig = getWebhookConfig();

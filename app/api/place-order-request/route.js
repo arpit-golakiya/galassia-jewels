@@ -8,6 +8,16 @@ function sanitize(value) {
   return String(value || "").trim();
 }
 
+function getClientIp(request) {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const realIp = request.headers.get("x-real-ip");
+  const vercelIp = request.headers.get("x-vercel-forwarded-for");
+  const cloudflareIp = request.headers.get("cf-connecting-ip");
+  const rawIp = forwardedFor || vercelIp || cloudflareIp || realIp || "";
+
+  return sanitize(rawIp.split(",")[0]) || "Unknown";
+}
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -57,6 +67,7 @@ export async function POST(request) {
     const bandColor = sanitize(payload.bandColor) || "Dune";
     const currency = sanitize(payload.currency) === "USD" ? "USD" : "INR";
     const country = sanitize(payload.country) || "Unknown";
+    const ipAddress = getClientIp(request);
     const price = getPrice({ diamondType, quality, karat });
 
     if (!name || !phone || !diamondType || !quality || !karat || !price) {
@@ -90,6 +101,7 @@ export async function POST(request) {
       phone: escapeHtml(phone),
       email: escapeHtml(email || "Not provided"),
       country: escapeHtml(country),
+      ipAddress: escapeHtml(ipAddress),
       material: escapeHtml(material),
       selectedColor: escapeHtml(selectedColor),
       bandColor: escapeHtml(bandColor),
@@ -123,6 +135,7 @@ export async function POST(request) {
         `Phone: ${phone}`,
         `Email: ${email || "Not provided"}`,
         `Country: ${country}`,
+        `IP Address: ${ipAddress}`,
         "",
         `Material: ${material}`,
         `Gold Color: ${selectedColor}`,
@@ -138,6 +151,7 @@ export async function POST(request) {
           <p><strong>Phone:</strong> ${safe.phone}</p>
           <p><strong>Email:</strong> ${safe.email}</p>
           <p><strong>Country:</strong> ${safe.country}</p>
+          <p><strong>IP Address:</strong> ${safe.ipAddress}</p>
           <hr />
           <p><strong>Material:</strong> ${safe.material}</p>
           <p><strong>Gold Color:</strong> ${safe.selectedColor}</p>
